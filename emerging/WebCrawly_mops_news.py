@@ -86,7 +86,6 @@ def updatedDataDic(oldDataDic_mopsNews_dic, newDataDic_mopsNews_dic):
     updateDics = {}
 
     global flag
-
     if flag == 0:
         print('初始化「上櫃」相關新聞資訊')
         flag = 1
@@ -145,7 +144,7 @@ def updatedDataDic(oldDataDic_mopsNews_dic, newDataDic_mopsNews_dic):
 #         raise
 # 
 #     print('asdfasdfasd')
-#
+# 
 # try:
 #     erfun()
 #     print(1)
