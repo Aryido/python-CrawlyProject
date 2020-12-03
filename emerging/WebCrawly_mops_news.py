@@ -20,22 +20,24 @@ def getDriver_mopsNews():
 # 取得最新有「上櫃」相關新聞的欄位，並回傳dic={時間:公司名}
 def get_mops_news_data():
     DataDic = {}
+
     try:
         # selenium點選興櫃公司
         selectedItemName = driver.find_element_by_xpath("//*[@id='table01']/form[1]/table/tbody/tr[2]/td[4]/input")
         selectedItemName.click()
         time.sleep(2)
-
         driver.find_element_by_name(name='fm_t05sr01_1')  # 如果沒抓到該表格就報錯，跳出
+    except:
+        raise
 
-        # 有抓到表格的話，就跑迴圈，迴圈超出範圍也會報錯，跳出
+
+
+    try:
+        # 迴圈超出範圍就報錯，跳出
         for i in range(2, 20, 1):
-            companyName = driver.find_element_by_xpath(
-                "//*[@id='table01']/form[2]/table/tbody/tr[{}]/td[2]".format(i)).text
-            releaseDate = driver.find_element_by_xpath(
-                "//*[@id='table01']/form[2]/table/tbody/tr[{}]/td[3]".format(i)).text
-            releaseTime = driver.find_element_by_xpath(
-                "//*[@id='table01']/form[2]/table/tbody/tr[{}]/td[4]".format(i)).text
+            companyName = driver.find_element_by_xpath("//*[@id='table01']/form[2]/table/tbody/tr[{}]/td[2]".format(i)).text
+            releaseDate = driver.find_element_by_xpath("//*[@id='table01']/form[2]/table/tbody/tr[{}]/td[3]".format(i)).text
+            releaseTime = driver.find_element_by_xpath("//*[@id='table01']/form[2]/table/tbody/tr[{}]/td[4]".format(i)).text
             content = driver.find_element_by_xpath("//*[@id='table01']/form[2]/table/tbody/tr[{}]/td[5]".format(i)).text
             # print(content)
 
@@ -46,10 +48,10 @@ def get_mops_news_data():
 
             if ('上櫃' in content):
                 DataDic[str(datetimeStrip)] = companyName
-
         return DataDic
     except:
         return DataDic
+
 
 
 # 通知是否有新上櫃新聞資訊
@@ -133,3 +135,19 @@ def updatedDataDic(oldDataDic_mopsNews_dic, newDataDic_mopsNews_dic):
 #
 # b=driver.find_element_by_xpath("//*[@id='table01']/form[2]/table/tbody/tr[{}]/td[2]".format(3)).text
 # print(b)
+
+# def erfun():
+#     try:
+#         a=1/0
+#         print(1)
+#     except:
+#         print("error")
+#         raise
+# 
+#     print('asdfasdfasd')
+#
+# try:
+#     erfun()
+#     print(1)
+# except:
+#     print('yes!')
