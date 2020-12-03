@@ -5,7 +5,6 @@ import bs4
 # 以下網址的表格一有更新便需要通知：
 url = 'http://www.yobond.com.tw/Form/pub/'
 
-
 def fetch(url):
     # 附加request Header資訊
     headers = {
@@ -21,13 +20,19 @@ def fetch(url):
 
     return response.content.decode('utf-8')
 
-
 data = fetch(url)
 root = bs4.BeautifulSoup(data, 'html.parser')
 table = root.find('div', class_='content').find('table')
 
+
 #找出表格內第一row的公司名稱，該公司名稱代表最新的資訊
 def get_yobond_CB_data():
+    global data, root, table
+
+    data = fetch(url)
+    root = bs4.BeautifulSoup(data, 'html.parser')
+    table = root.find('div', class_='content').find('table')
+
     newestName = table.find_all('tr')[2].find('a').text
     return newestName
 
@@ -57,7 +62,6 @@ def updatedDataDic(oldDatastr_yobondcb):
 
     global flag
     if (flag == 0):
-        # updated_yobond_dic[companyName] = listingDate
         print('初始化紀錄yobond最新表格')
         flag = 1;
         return updated_yobond_dic

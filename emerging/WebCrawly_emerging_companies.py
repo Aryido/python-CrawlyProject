@@ -27,6 +27,12 @@ table = root.find('table', class_='page-table')
 
 
 def get_emerg_comp_data():
+    global data, root, table
+
+    data = fetch(url)
+    root = bs4.BeautifulSoup(data, 'html.parser')
+    table = root.find('table', class_='page-table')
+
     ##找出表格內第一個公司名稱
     newestCompanyName = table.find('tbody').find('tr').find_all('td')[2].find('a').text
     return newestCompanyName

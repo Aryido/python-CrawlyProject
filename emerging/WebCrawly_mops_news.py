@@ -9,6 +9,10 @@ from datetime import datetime
 driver = webdriver.Chrome()
 driver.get("https://mops.twse.com.tw/mops/web/t05sr01_1")
 time.sleep(2)
+# selenium點選興櫃公司
+selectedItemName = driver.find_element_by_xpath("//*[@id='table01']/form[1]/table/tbody/tr[2]/td[4]/input")
+selectedItemName.click()
+
 
 def getDriver_mopsNews():
     return driver
@@ -20,6 +24,7 @@ def get_mops_news_data():
         # selenium點選興櫃公司
         selectedItemName = driver.find_element_by_xpath("//*[@id='table01']/form[1]/table/tbody/tr[2]/td[4]/input")
         selectedItemName.click()
+        time.sleep(2)
 
         driver.find_element_by_name(name='fm_t05sr01_1')  # 如果沒抓到該表格就報錯，跳出
 
@@ -79,9 +84,10 @@ def updatedDataDic(oldDataDic_mopsNews_dic, newDataDic_mopsNews_dic):
     updateDics = {}
 
     global flag
-    flag = 1
+
     if flag == 0:
         print('初始化「上櫃」相關新聞資訊')
+        flag = 1
         return updateDics
 
     for newKey in newDataDic_mopsNews_dic:

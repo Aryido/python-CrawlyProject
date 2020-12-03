@@ -76,19 +76,23 @@ def job():
     print(oldDataDic_twsecb)
 
 
+    try:
+        # 重新刷新tpex頁面
+        driver__mopsNews = mopsnews.getDriver_mopsNews()
+        driver__mopsNews.refresh()
+        time.sleep(2)
+        # selenium點選興櫃公司
+        selectedItemName = driver__mopsNews.find_element_by_xpath("//*[@id='table01']/form[1]/table/tbody/tr[2]/td[4]/input")
+        selectedItemName.click()
 
-    # 重新刷新tpex頁面
-    driver__mopsNews = mopsnews.getDriver_mopsNews()
-    driver__mopsNews.refresh()
-    time.sleep(2)
-    # selenium點選興櫃公司
-    selectedItemName = driver__mopsNews.find_element_by_xpath("//*[@id='table01']/form[1]/table/tbody/tr[2]/td[4]/input")
-    selectedItemName.click()
-
-    # 重新刷新tpex頁面
-    driver_tpexcb = tpexcb.getDriver_tpse_CB()
-    time.sleep(1)
-    driver_tpexcb.refresh()
+        # 重新刷新tpex頁面
+        driver_tpexcb = tpexcb.getDriver_tpse_CB()
+        time.sleep(1)
+        driver_tpexcb.refresh()
+    except:
+        print('畫面刷新，請等下次更新')
+        driver__mopsNews.refresh()
+        driver_tpexcb.refresh()
 
 
     # 寄信判斷，並傳入更新的資料

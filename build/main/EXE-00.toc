@@ -40,7 +40,7 @@
  [],
  False,
  False,
- 1606978386,
+ 1606983865,
  [('run.exe',
    'c:\\pythonwebcrawly-company-project\\venv\\lib\\site-packages\\PyInstaller\\bootloader\\Windows-32bit\\run.exe',
    'EXECUTABLE')])

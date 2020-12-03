@@ -22,14 +22,18 @@ def fetch(url):
     return response.content.decode('utf-8')
 
 
-data = fetch(url)
-root = bs4.BeautifulSoup(data, 'html.parser')
-table = root.find('table')
+# data = fetch(url)
+# root = bs4.BeautifulSoup(data, 'html.parser')
+# table = root.find('table')
 
 
 # 取得最新有公司債的欄位，並回傳dic={時間:公司名}
 def get_twse_CB_data():
     DataDic = {}
+
+    data = fetch(url)
+    root = bs4.BeautifulSoup(data, 'html.parser')
+    table = root.find('table')
 
     # 找出最新所有新聞的內容
     newest_List = table.find('div', id='zoom01').find_all('form')[1].find('table').find_all('tr')[1:]  # 去掉最上面thead_row

@@ -29,6 +29,14 @@ thead = root.find("thead")
 
 
 def get_appli_comp_data():
+    global data, root, table, tbody, thead
+
+    data = fetch(url)
+    root = bs4.BeautifulSoup(data, 'html.parser')
+    table = root.find('table')
+    tbody = root.find("tbody")
+    thead = root.find("thead")
+
     ##找出表格還沒有填完的部分
     RevisableFormDic = saveRevisableForm()
 
