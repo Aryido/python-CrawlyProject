@@ -8,11 +8,11 @@ from datetime import datetime
 # 以下網址，在「市場別：興櫃公司」中，若有關鍵字「上櫃」相關新聞出現便需要通知：
 driver = webdriver.Chrome()
 driver.get("https://mops.twse.com.tw/mops/web/t05sr01_1")
-time.sleep(2)
+time.sleep(1)
 # selenium點選興櫃公司
 selectedItemName = driver.find_element_by_xpath("//*[@id='table01']/form[1]/table/tbody/tr[2]/td[4]/input")
 selectedItemName.click()
-
+time.sleep(1)
 
 def getDriver_mopsNews():
     return driver
@@ -21,20 +21,23 @@ def getDriver_mopsNews():
 def get_mops_news_data():
     DataDic = {}
 
+    size=0
     try:
         # selenium點選興櫃公司
         selectedItemName = driver.find_element_by_xpath("//*[@id='table01']/form[1]/table/tbody/tr[2]/td[4]/input")
         selectedItemName.click()
         time.sleep(2)
         driver.find_element_by_name(name='fm_t05sr01_1')  # 如果沒抓到該表格就報錯，跳出
+
+        trs = driver.find_element_by_xpath("//*[@id='table01']/form[2]/table/tbody").find_elements_by_tag_name('tr')
+        for tr in trs:
+            size=size+1
     except:
         raise
 
-
-
     try:
         # 迴圈超出範圍就報錯，跳出
-        for i in range(2, 20, 1):
+        for i in range(2, size-1, 1):
             companyName = driver.find_element_by_xpath("//*[@id='table01']/form[2]/table/tbody/tr[{}]/td[2]".format(i)).text
             releaseDate = driver.find_element_by_xpath("//*[@id='table01']/form[2]/table/tbody/tr[{}]/td[3]".format(i)).text
             releaseTime = driver.find_element_by_xpath("//*[@id='table01']/form[2]/table/tbody/tr[{}]/td[4]".format(i)).text
@@ -150,3 +153,16 @@ def updatedDataDic(oldDataDic_mopsNews_dic, newDataDic_mopsNews_dic):
 #     print(1)
 # except:
 #     print('yes!')
+
+
+# trs=driver.find_element_by_xpath("//*[@id='table01']/form[2]/table/tbody").find_elements_by_tag_name('tr')
+# print(trs)
+#
+# for tr in trs:
+#     print(tr.text)
+
+# size=0
+# trs = driver.find_element_by_xpath("//*[@id='table01']/form[2]/table/tbody").find_elements_by_tag_name('tr')
+# for tr in trs:
+#     size=size+1
+# print(size)
