@@ -1,0 +1,7 @@
+selenium
+requests
+pandas
+beautifulsoup4
+lxml
+schedule
+pyinstaller
