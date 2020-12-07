@@ -11,6 +11,8 @@ def getDriver_tpse_CB():
     return driver
 
 def get_tpse_CB_data():
+    driver.refresh()
+    time.sleep(2)
     newDatastr_tpexcb = driver.find_element_by_xpath("//*[@id='rpt_result']/tbody/tr[1]/td[2]").text
     return newDatastr_tpexcb
 

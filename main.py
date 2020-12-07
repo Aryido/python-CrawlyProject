@@ -87,21 +87,19 @@ def job():
 
         # 重新刷新tpex頁面
         driver_tpexcb = tpexcb.getDriver_tpse_CB()
-        time.sleep(1)
         driver_tpexcb.refresh()
+        time.sleep(2)
     except:
-        print('畫面刷新，請等下次更新')
-        driver__mopsNews.refresh()
-        driver_tpexcb.refresh()
+        print('畫面刷新有誤，請等下次更新')
 
 
     # 寄信判斷，並傳入更新的資料
     if (newUpdated_appli_comp_dic or updateDataDic_mopsNews or updated_emerg_comp_dic or \
             updated_yobond_dic or updated_tpex_dic or updateDataDic_twsecb):
-        sendEmail.sendEmailMsg(newUpdated_appli_comp_dic, updateDataDic_mopsNews, updated_emerg_comp_dic,
-                                updated_yobond_dic, updated_tpex_dic, updateDataDic_twsecb)
-        # sendEmail2.sendEmailMsg(newUpdated_appli_comp_dic, updateDataDic_mopsNews, updated_emerg_comp_dic,
+        # sendEmail.sendEmailMsg(newUpdated_appli_comp_dic, updateDataDic_mopsNews, updated_emerg_comp_dic,
         #                         updated_yobond_dic, updated_tpex_dic, updateDataDic_twsecb)
+        sendEmail2.sendEmailMsg(newUpdated_appli_comp_dic, updateDataDic_mopsNews, updated_emerg_comp_dic,
+                                updated_yobond_dic, updated_tpex_dic, updateDataDic_twsecb)
         print("已寄信")
 
     print("END====================================")
@@ -109,7 +107,7 @@ def job():
 
 
 # 設定排程時間
-#schedule.every(20).seconds.do(job)
+#schedule.every(30).seconds.do(job)
 schedule.every(15).minutes.do(job)
 print("Staring...")
 print("     ")

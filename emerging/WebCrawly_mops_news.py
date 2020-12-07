@@ -23,6 +23,8 @@ def get_mops_news_data():
 
     size=0
     try:
+        driver.refresh()
+        time.sleep(1)
         # selenium點選興櫃公司
         selectedItemName = driver.find_element_by_xpath("//*[@id='table01']/form[1]/table/tbody/tr[2]/td[4]/input")
         selectedItemName.click()
@@ -80,7 +82,7 @@ def mopsNews_notify(oldDataDic_mopsNews_dic):
             flag = 1
             return newDataDic_mopsNews_dic, updateDataDic_mopsNews
     except:
-        print('print("公開資訊網，興櫃公司類別畫面有誤")')
+        print("公開資訊網，興櫃公司類別畫面有誤")
         newDataDic_mopsNews_dic = oldDataDic_mopsNews_dic
         return newDataDic_mopsNews_dic, updateDataDic_mopsNews
 
