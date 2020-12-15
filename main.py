@@ -57,20 +57,24 @@ def job():
     print("I'm working...")
     print(str(datetime.now()).split('.')[0])
 
-    # 興櫃相關回傳的更新資料
+    #########興櫃相關回傳的更新資料
     newUpdated_appli_comp_dic, updateDataDic_mopsNews, updated_emerg_comp_dic = emergingJob()
+    #寄信資料
     print(newUpdated_appli_comp_dic)
     print(updateDataDic_mopsNews)
     print(updated_emerg_comp_dic)
+    #舊畫面資料
     print(oldRevisableFormDic_appli_comp.keys())
     print(oldDataDic_mopsNews)
     print(oldDatastr_emerg_comp)
 
-    # 可轉債相關回傳的更新資料
+    #########可轉債相關回傳的更新資料
     updated_yobond_dic, updated_tpex_dic, updateDataDic_twsecb = convertibleBondJob()
+    # 寄信資料
     print(updated_yobond_dic)
     print(updated_tpex_dic)
     print(updateDataDic_twsecb)
+    # 舊畫面資料
     print(oldDatastr_yoboundcb)
     print(oldDatastr_tpexcb)
     print(oldDataDic_twsecb)
@@ -89,18 +93,21 @@ def job():
         driver_tpexcb = tpexcb.getDriver_tpse_CB()
         driver_tpexcb.refresh()
         time.sleep(2)
+
+        try:
+            # 寄信判斷，並傳入更新的資料
+            if (newUpdated_appli_comp_dic or updateDataDic_mopsNews or updated_emerg_comp_dic or \
+                    updated_yobond_dic or updated_tpex_dic or updateDataDic_twsecb):
+                sendEmail.sendEmailMsg(newUpdated_appli_comp_dic, updateDataDic_mopsNews, updated_emerg_comp_dic,
+                                        updated_yobond_dic, updated_tpex_dic, updateDataDic_twsecb)
+                # sendEmail2.sendEmailMsg(newUpdated_appli_comp_dic, updateDataDic_mopsNews, updated_emerg_comp_dic,
+                #                         updated_yobond_dic, updated_tpex_dic, updateDataDic_twsecb)
+                print("已寄信")
+        except:
+            print("寄信失敗")
+
     except:
         print('畫面刷新有誤，請等下次更新')
-
-
-    # 寄信判斷，並傳入更新的資料
-    if (newUpdated_appli_comp_dic or updateDataDic_mopsNews or updated_emerg_comp_dic or \
-            updated_yobond_dic or updated_tpex_dic or updateDataDic_twsecb):
-        sendEmail.sendEmailMsg(newUpdated_appli_comp_dic, updateDataDic_mopsNews, updated_emerg_comp_dic,
-                                updated_yobond_dic, updated_tpex_dic, updateDataDic_twsecb)
-        # sendEmail2.sendEmailMsg(newUpdated_appli_comp_dic, updateDataDic_mopsNews, updated_emerg_comp_dic,
-        #                         updated_yobond_dic, updated_tpex_dic, updateDataDic_twsecb)
-        print("已寄信")
 
     print("END====================================")
 
