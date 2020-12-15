@@ -79,7 +79,6 @@ def job():
     print(oldDatastr_tpexcb)
     print(oldDataDic_twsecb)
 
-
     try:
         # 重新刷新tpex頁面
         driver__mopsNews = mopsnews.getDriver_mopsNews()
@@ -93,21 +92,20 @@ def job():
         driver_tpexcb = tpexcb.getDriver_tpse_CB()
         driver_tpexcb.refresh()
         time.sleep(2)
-
-        try:
-            # 寄信判斷，並傳入更新的資料
-            if (newUpdated_appli_comp_dic or updateDataDic_mopsNews or updated_emerg_comp_dic or \
-                    updated_yobond_dic or updated_tpex_dic or updateDataDic_twsecb):
-                sendEmail.sendEmailMsg(newUpdated_appli_comp_dic, updateDataDic_mopsNews, updated_emerg_comp_dic,
-                                        updated_yobond_dic, updated_tpex_dic, updateDataDic_twsecb)
-                # sendEmail2.sendEmailMsg(newUpdated_appli_comp_dic, updateDataDic_mopsNews, updated_emerg_comp_dic,
-                #                         updated_yobond_dic, updated_tpex_dic, updateDataDic_twsecb)
-                print("已寄信")
-        except:
-            print("寄信失敗")
-
     except:
         print('畫面刷新有誤，請等下次更新')
+
+    try:
+        # 寄信判斷，並傳入更新的資料
+        if (newUpdated_appli_comp_dic or updateDataDic_mopsNews or updated_emerg_comp_dic or \
+                updated_yobond_dic or updated_tpex_dic or updateDataDic_twsecb):
+            sendEmail.sendEmailMsg(newUpdated_appli_comp_dic, updateDataDic_mopsNews, updated_emerg_comp_dic,
+                                    updated_yobond_dic, updated_tpex_dic, updateDataDic_twsecb)
+            # sendEmail2.sendEmailMsg(newUpdated_appli_comp_dic, updateDataDic_mopsNews, updated_emerg_comp_dic,
+            #                         updated_yobond_dic, updated_tpex_dic, updateDataDic_twsecb)
+            print("已寄信")
+    except:
+        print("寄信失敗")
 
     print("END====================================")
 
